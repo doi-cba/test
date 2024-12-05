@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>LINE Partner Registration API テスト</title>
+    <script>
+        async function checkRegistration() {
+            const partnerId = document.getElementById('partnerId').value;
+            const channelSecret = document.getElementById('channelSecret').value;
+
+            const url = `https://api.line.me/developer/v1/partner/${partnerId}`; // 適切なAPIエンドポイントに置き換えてください
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${channelSecret}`
+                    }
+                });
+
+                const result = await response.json();
+                alert('登録確認: ' + JSON.stringify(result));
+            } catch (error) {
+                alert('エラーが発生しました: ' + error.message);
+            }
+        }
+
+        async function register() {
+            const partnerId = document.getElementById('partnerId').value;
+            const channelSecret = document.getElementById('channelSecret').value;
+
+            const url = `https://api.line.me/developer/v1/partner/${partnerId}`; // 適切なAPIエンドポイントに置き換えてください
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${channelSecret}`,
+                    }
+                });
+
+                const result = await response.json();
+                alert('登録結果: ' + JSON.stringify(result));
+            } catch (error) {
+                alert('エラーが発生しました: ' + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>LINE Partner Registration API テスト</h1>
+    <label for="partnerId">パートナーID:</label>
+    <input type="text" id="partnerId" required>
+    <br>
+    <label for="channelSecret">チャネルシークレット:</label>
+    <input type="text" id="channelSecret" required>
+    <br>
+    <button onclick="checkRegistration()">登録確認</button>
+    <button onclick="register()">登録</button>
+</body>
+</html>
